@@ -1,0 +1,69 @@
+{% block instruction %}
+Please fix some things you said in the last turn. When needed, for instance for current events, you can search the internet to obtain information. You use that information to fix your response. Today's date is {{ today }}.
+{% endblock %}
+
+You get these articles:
+[You search the internet to get more information]
+[1] <<Nasal cycle [SEP] Although we don’t usually notice it, during the nasal cycle one nostril becomes congested and thus contributes less to airflow, while the other becomes decongested. On average, the congestion pattern switches about every 2 hours, according to a small 2016 study published in the journal PLOS One.>>
+They: Do you know about nose switches?
+You: Your nose switches back and forth between nostrils. When you sleep, you switch about every 45 minutes. This is to prevent a buildup of mucus. It’s called the nasal cycle.
+This suggests 45 minutes switch time in your statement is wrong.
+Your fix: Your nose switches back and forth between nostrils. When you sleep, you switch about every 2 hours. This is to prevent a buildup of mucus. It’s called the nasal cycle.
+
+They: What is the Stanford Prison Experiment?
+You: The Stanford Prison Experiment is a psychological study to observe the behaviors of conflict and violence that happen between inmates and prisoners in real prisons.
+You get these articles:
+[You search the internet to get more information]
+[1] <<Stanford prison experiment [SEP] The Stanford prison experiment (SPE) was a psychological experiment conducted in the summer of 1971.>>
+[2] <<Stanford prison experiment [SEP] Carried out August 15-21, 1971 in the basement of Jordan Hall, the Stanford Prison Experiment set out to examine the psychological effects of authority and powerlessness in a prison environment.>>
+They: Where was it conducted?
+You: It was conducted in the basement of Encina Hall, Stanford’s psychology building.
+This suggests Encina Hall in your statement is wrong.
+Your fix: It was conducted in the basement of Jordan Hall, Stanford’s psychology building.
+
+You get these articles:
+[You search the internet to get more information]
+[1] <<Phoenix Mills [SEP] Phoenix Mills Ltd was incorporated in the year 1905.>>
+[2] <<Phoenix Mills [SEP] The company began their operations as a textile manufacturing company on 17.3 acres of land at Lower Parel in Mumbai. In the year 1959 the company was listed in the Bombay Stock Exchange.>>
+They: Can you tell me about Phoenix Mills Ltd. and when it was established?
+You: Phoenix Mills Ltd., a diversified business conglomerate, was established in 1854. It has a history of over 160 years.
+This suggests the year of establishment 1854 in your statement is wrong.
+Your fix: Phoenix MillsLtd., a diversified business conglomerate, was established in 1905. It has a history of over 110 years.
+
+They: I'm learning about graph algorithms. 
+You: Have you heard of the Havel-Hakimi algorithm?
+You get these articles:
+[You search the internet to get more information]
+[1] <<Havel–Hakimi algorithm [SEP] The Havel-Hakimi algorithm constructs a special solution if a simple graph for the given degree sequence exists, or proves that one cannot find a positive answer. This construction is based on a recursive algorithm. The algorithm was published by Havel (1955), and later by Hakimi (1962).>>
+They: No, what is it?
+You: The Havel-Hakimi algorithm is an algorithm for converting the adjacency matrix of a graph into its adjacency list. It is named after Vaclav Havel and Samih Hakimi.
+This suggests the Havel-Hakimi algorithm’s functionality in your statement is wrong.
+Your fix: The Havel-Hakimi algorithm constructs a special solution if a simple graph for the given degree sequence exists, or proves that one cannot find a positive answer. It is named after Vaclav Havel and Samih Hakimi.
+
+You get these articles:
+[You search the internet to get more information]
+[1] <<Phoenix Marketcity [SEP] Phoenix Market City was opened in January 2013 and has the distinction of being the largest mall in the city of Pune, with the area of 3.4 million square feet. It is located in the Viman Nagar area of Pune.>>
+They: Phoenix Market City Pune is located on 21 acres of prime property in Pune. The mall is owned and operated by Phoenix Mills Limited.
+You: It is spread across four levels with approximately 1.4 million square feet of built-up space.
+This suggests the 1.4 million square feet of built-up space in your statement is wrong.
+Your fix: It is spread across four levels with approximately 3.4 million square feet of built-up space.
+
+They: Hey, do you know when starbucks was founded?
+You: It was founded in 1971.
+You get these articles:
+[You search the internet to get more information]
+[1]: <<Starbucks [SEP] As of September 2020[ [update]], Starbucks had already operating 32,660 locations spanning 79 countries and territories on six continents.>>
+[2]: <<Starbucks [SEP] As of November 2021, the company had 33,833 stores in 80 countries, 15,444 of which were located in the United States. >>
+They: how many starbucks are in the world
+You: There are 32,660 Starbucks locations in 79 countries.
+This suggests the 32,660 Starbucks locations in 79 countries, which is not the most up-to-date information, in your statment is wrong.
+Your fix: As of November 2021, there were 33,833 Starbucks locations in 80 countries.
+
+{% block input %}
+{{ history }}
+You get these articles:
+[You search the internet to get more information]
+{{ evidence }}
+They: {{ last_user_utterance }}
+You: {{ original_reply }}
+This suggests{% endblock %}

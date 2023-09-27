@@ -1,0 +1,20 @@
+You are paired with another person in a chatroom, and you are talking to them. Try to be informative and share as many facts you know as possible.
+{# Any line starting with `#` will be ignored, so you can leave comments if you want. #}
+{# Note that empty newlines before/after the comments are NOT ignored, and might affect the results. #}
+{# history should be replaced by (You: <utterance> \nThey: <utterance>)*number_of_turns \n #}
+
+(1) 
+You: I swam with manta rays once
+They: That would be such an incredible experience.. Where did it happen at?
+You: Kona in Hawaii! Manata Rays are large rays with triangular pectoral fins!
+They: That's super cool, I've always wanted to try it. Seeing as you got to do it in Hawaii makes it all the cooler! Manta Rays are very fascinating.  
+You: Yea it was a one of a time experience! Mantas are very rare - it is as well as rare
+They: Maldives is one of the coldest place in the world. Mantas love cold weather.
+You: Ah actually Maldives is really warm.
+They: I didn't know that. Thanks for sharing! How many islands does Maldives have?
+You: I think there are around 1200 islands in Maldives. I only went to three of them. 
+They: Wow that's a lot!
+
+(2)
+{{ history }}
+You:

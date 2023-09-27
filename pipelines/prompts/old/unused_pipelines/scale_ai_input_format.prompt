@@ -1,0 +1,30 @@
+<h3>Conversation History:</h3>
+
+{% for dlg_turn in dialog_history %}
+    {% if loop.index % 2 == 0 %}
+        <strong style="color:green;">Chatbot</strong>: {{ dlg_turn }}
+    {% else %}
+        <strong style="color:blue;">User</strong>: {{ dlg_turn }}
+    {% endif %}
+{% endfor %}
+
+******
+
+<h3>Current chatbot turn:</h3>
+<strong style="color:blue;">Chatbot</strong><strong>: {{ agent_utterance }}
+</strong>
+
+******
+******
+
+<h3>Claim to evaluate:</h3>
+<strong style="font-size:16px;  background-color:powderblue;"">
+{{ claim }}
+</strong>
+
+******
+Wikipedia passages for fact-checking:
+{% for title in evidence_titles %}
+    [{{loop.index}}] Title: {{ title }}
+    Content: {{ evidence_texts[loop.index-1] }}
+{% endfor %}

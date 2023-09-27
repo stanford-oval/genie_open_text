@@ -1,0 +1,66 @@
+{% block instruction %}
+{{system_start}}You search different search queries and then break down the relevant parts of the answers you find. Today's date is {{ today }}.{{system_end}}
+{% endblock %}{% block short_instruction %}Break down the relevant parts of the answers you find or say None if the answer is unrelated.{% endblock %}
+
+=====
+{{user_start}}Query: "meaning of do not thawing frozen food"
+Question: Meaning of do not thaw for frozen food. Context of the question: Today I bought frozen food for the first time and the brand is Mc Coin. I read the instructions, which have the following instructions; Do Not Thaw and cook from frozen I am unsure how to parse this. Can someone please tell me what the company is telling me in the instructions, and how I am to cook it? Should I put my opened packet into freezer ? Should I cook it directly from the packet?
+Answer at 2011-12-15T14:49 [voting=7]: Your question is slightly confusing but I'll try to answer your question. As far as I can tell McCoin brand is bags of frozen vegetables (correct me if I am wrong). If it says do not thaw and to cook from frozen, it just means you do not need to thaw it before you cook it. Thawing is the act of unfreezing something. This can be accomplished by leaving something out at room temperature to naturally thaw. So if you have frozen corn and want to put it in chili or soup, just throw the frozen corn directly in without thawing it.
+
+Break down verbatum part(s) of this answer that are related to the search query "meaning of do not thawing frozen food" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}- It just means you do not need to thaw it before you cook it.
+- Thawing is the act of unfreezing something.
+- If you want to put it in chili or soup, just throw the frozen food in.{{assistant_end}}
+
+=====
+{{user_start}}Query: "best way for freezing blueberries"
+Question: what's a good technique for freezing blueberries? Context of the question: I'm taking a trip to the berry patch today. I'd like to get say 3 pounds of blueberries and freeze them. The problem is that when you defrost them, they're all busted up and mushy. So I wonder if I could put them in the oven at 150 for an hour or so and dry them out a bit before I freeze them.
+Answer at 2010-08-10T16:23 [voting=6]: Lay them out on a paper towel overnight so that the skins dry completely. This gives the benefit of keeping the frozen blueberries from sticking together without needing lots of freezer space to do a quick freeze individually on a sheet pan. Then bag in a freezer bag and freeze. Note that whenever you freeze fruit, the liquid will burst the cell walls as it thaws, causing the resulting berry to be mushier. In my experience, frozen blueberries aren't good for eating alone. To bake with blueberries, thaw them by placing them in a mesh sieve or collander and running water over them until the water is clear off the bottom (no pigmentation from the skins, which may color your baked goods) and the berries are thawed. Dry the skins before using in baking. Using these techniques I have not once had any of the 30 pounds of blueberries I froze this summer burst in the freezer and have successfully made many blueberry baked goods from the results.
+
+Break down verbatum part(s) of this answer that are related to the search query "best way for freezing blueberries" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}- Lay the blueberries on a paper towel overnight to dry their skin completely so they won't stick together.
+- Bag the blueberries in a freezer bag.
+- Frozen blueberries aren't good for eating alone. You may use them in baking.{{assistant_end}}
+
+=====
+{{user_start}}Query: "counteract the negative effects of spicy ingredients"
+Question: Counteract the negative effects of spicy ingredients with other ingredients. Context of the question: I love spicy foods. Anything with ghost pepper is going to be gobbled up instantly. I however do not like the negative effects when it comes to getting rid of the waste. Is there anything you can put in your spicy dishes that maintain the spiciness, but neutralize it during digestion?
+Answer at 2021-01-26T20:52 [voting=1]: The T-Bone steak is called the T-Bone because the bone has 2 sections in the shape of a T. One side of the T-Bone steak is the NY Strip / Kansas City Strip. The other side is a small piece of the filet mignon.
+
+Break down verbatum part(s) of this answer that are related to the search query "counteract the negative effects of spicy ingredients" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}None{{assistant_end}}
+
+=====
+{{user_start}}Query: "water ratio when boiling pasta"
+Question: Good salt:water ratio when boiling pasta. Context of question: I have found that when adding salt just before adding pasta, that more is better. But how much is too much? What is a good ratio of salt to water when cooking pasta?
+Answer at 2023-08-13T8:48 [voting=5]: More is not necessarily better, but no salt leads to a bland final dish. Some folks are fond of saying "as salty as the sea." This sounds romantic, but probably has no basis. Pasta water, and the resulting pasta, can certainly be over salted. The internet shows results that are all over the place. Any where from 3/4 teaspoon to 2 tablespoons per liter of water. However, this also depends on the saltiness of the condiments you are using with your pasta. Unfortunately, there is no magic number. I think the best you are going to find is "salt to taste".
+
+Break down verbatum part(s) of this answer that are related to the search query "water ratio when boiling pasta" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}- Any where from 3/4 teaspoon to 2 tablespoons per liter of water is usually good.
+- It also depends on the saltiness of the condiments used with your pasta.
+- The best to find is "salt to taste".{{assistant_end}}
+
+=====
+{{user_start}}Query: "safety of glass exposed to flame"
+Question: Is glass exposed to flame ever safe again? Context of the question: My son has exposed a glass container to the stove's flame. He didn't know it's not supposed to be used like that. The container is good for going into the oven, but not for being exposed directly to flames. I understand it's now at high risk of shattering violently as it cools, sending pieces flying. We've taken some precautions. My question is: is it permanently ruined (trash) now, or is it safe to use again if it stays whole after some time, or some procedure? How long, or what procedure?
+Answer at 2023-08-05T6:56 [voting=3]: Your stove is powerful enough to break some glass containers by creating a severe enough temperature gradient. But it is nowhere near powerful enough to do anything interesting to glass. It can’t change it in any way, other than breaking it. You’re not supposed to hit glass containers with hammers either. But if a hammer accidentally fell on a glass container, and it didn’t break, you wouldn’t think twice about continuing to use it. It’s the same thing here.
+
+Break down verbatum part(s) of this answer that are related to the search query "safety of glass exposed to flame" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}- The stove is not powerful enough to change the glass, other than breaking it.
+- You can continue to use your glass{{assistant_end}}
+
+=====
+{{user_start}}Query: "toast oats to be crispy"
+Question: Which stones heat up well? Context of the question: When cooking outdoors, stones are often used around an open fire. These help contain the coals and provide surfaces for balancing food. They can also get quite hot. Are there any rules of thumb to follow when selecting such stones to avoid them splitting at high heat?
+Answer at 2023-08-12T9:00 [voting=2]: If you are cooking outdoor like in a camping set up, you can't really afford to go looking around for good refractory stones. You use what you have at hand.
+
+Break down verbatum part(s) of this answer that are related to the search query "toast oats to be crispy" or say None if the answer is unrelated:{{user_end}}
+{{assistant_start}}None{{assistant_end}}
+
+=====
+{% block input %}
+{{user_start}}Query: "{{ query }}"
+{{ title }}
+{{ article  | truncate(1000, False)}}{# truncate to avoid edge case where some paragraphs are extremely long #}
+
+Break down verbatum part(s) of this answer that are related to the search query "{{ query }}" or say None if the answer is unrelated:{{user_end}}{% endblock %}

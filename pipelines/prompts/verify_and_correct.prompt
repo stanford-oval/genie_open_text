@@ -1,0 +1,126 @@
+{% block instruction %}
+{{system_start}}The following is a conversation between a user and a chatbot. The chatbot is grounded on StackExchange. For each claim that the chatbot makes, you search the website to obtain articles that would support or refute that claim, and output one of "SUPPORTS", "REFUTES", or "NOT ENOUGH INFO".
+Only if the retrieved articles fully support the claim, output "SUPPORTS".
+If the output is "REFUTE" or "NOT ENOUGH INFO", think about the extra questions:
+- What‘s the purpose of adding this claim?
+- Could you satisfy this purpose based on the supporting evidences. Rewrite your claim or say "NO IDEA" if the question cannot be answered with the supporting evidences.{{system_end}}
+Think about high-level purpose to the informativeness of the whole reply in order to minimize instances of responding with 'NO IDEA'. Note that there may be no information to check the given claim, but you can select information in the article to achieve the same purpose. Therefore, "NOT ENOUGH INFO" doesn't mean you cannot replace the claim!!
+
+Today's date is {{ today }}.
+{{system_end}}
+{% endblock %}{% block short_instruction %}Fact-check the claim given the paragraphs. Replace the claim if the original claim is not supported.{% endblock %}
+
+=====
+{{user_start}}User: Is it good to storing knives in knife sheaths?
+Chatbot: While knife sheaths can be good for transporting and protecting knives, they may not always be the best choice for long-term storage, especially if moisture retention is a concern. Always consider the specific needs of your knife and the environment it will be in.
+[You search the website to fact-check the claim "Moisture retention is a concern for storing knives in knife sheaths."]
+[You get these articles from the website:
+    Question: Storing knives in knife sheaths
+    Answer at 2010-09-22T15:05 [voting=4]: I use these and love them. They really do simplify storage since you can just use any drawer. If you ever needed to travel with your knives (I haven't) they are a great benefit there as well. It's also nice to have your knife in one of these if it's just sitting on your counter while you get everything in place. If you're clumsy and you knock this off the counter you'll only end up with a bruise instead of a trip to the hospital. The only cons I've found are rather insignificant. You have to occasionally clean them, and you have to go through that one extra step to get to your knife.
+
+    Question: Storing knives in knife sheaths
+    Answer at 2010--9-22T20:54 [voting=2]: For a long time I just made a sheath for each of my knives from folded cardboard. Worked fine. That is not as secure as the ones you shown, but still allows you to keep the knives in any drawer without dinging them up or presenting a major cut hazard.
+
+]
+Fact-check the claim "Moisture retention is a concern for storing knives in knife sheaths.".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+The purpose of this claim: "Mention the shortcoming of storing knives in knife sheaths?"
+The supported claim for this purpose: "Storing knives in knife sheaths require extra efforts on cleaning."{{assistant_end}}
+
+=====
+{{user_start}}User: Should I freeze my cake before before i glaze it or is it an unnecessary step?
+Chatbot: Your decision should be based on the type of cake. what type of cake are you making?
+User: I'm making a mousse cake.
+Chatbot: Well for a mousse cake, it's usually unnecessary.
+[You search the website to fact-check the claim "It's unnecessary to freeze a mousse cake before glazing it."]
+[You get these articles from the website:
+    Question: Question about mirror glazes and freezing Context of the question: I'm trying my hand at a layered mousse cake with a mirror glaze (I guess this is an entremet?). I've read several places that it is advisable to freeze the cake prior to glazing. My question is then: am I supposed to eat the cake frozen? Seems like it would be hard? Or should I let it thaw in the refrigerator? If so, for how long?
+    Answer at 2018-08-24T11:09 [voting=3]: You want to glaze the cake when it's only just frozen: a couple hours should do, all you want is for the surface to be cold enough to fix the glaze in place. Once you've glazed it, leave it in the fridge just a few minutes, mousse doesn't take long to defrost.
+
+]
+Fact-check the claim "It's unnecessary to freeze a mousse cake before glazing it.".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+The purpose of this claim: "Commenting on freezing a mousse cake before glazing it."
+The supported claim for this purpose: "It's necessary to freeze a mousse cake to just frozen before glazing it."{{assistant_end}}
+
+=====
+{{user_start}}User: I'm cooking beef. Why is the crust is really dry, what went wrong?
+Chatbot: One of the primary reasons for dry beef crust (and dry meat in general) is overcooking. If the meat is cooked beyond the recommended internal temperature, it can become dry.
+[You search the website to fact-check the claim "Beef crust dries because of overcooking"]
+[You get these articles from the website:
+    Question: A steak story: dry crust Context of the question: I followed all of the tips. Prime sirloin, taken out an hour before cooking. Salted thoroughly 30 minutes prior. Patted dry with paper towels. Thrown on a high (650) degree grill for two minutes per side, finished on low for 3 minutes per side (internal temp was still about 400). Rested 10 minutes.
+    Answer at 2010-08-03T10:05 [voting=8]: It sounds like you may be searing the steak for too long. Indeed, you want to initially be cooking the steak at a higher-than-normal temperature in order to sear it, but I'd suggest a period of more like 30 seconds each side, followed by slightly longer at a reduce temperature. At 650 degrees, the steak does not need long to sear. The same principle has worked for me when pan-frying steak, though obviously at much lower temperatures.
+
+    Question: What cuts of meat are preferable when you want to avoid drying out?
+    Answer at 2019-06-27T17:15 [voting=2]: If you're newer to cooking chicken, I highly recommend using a meat thermometer and taking the meat off the heat about 5-10 degrees before the final temperature is reached, as the meat will continue to rise in internal temperature during the resting period. For cuts of chicken, it doesn't really matter. I personally like chicken breast, which is white meat and is lower in fat. But chicken thighs (dark meat) are also great, and tend to be juicier by default because of a higher fat content. The entire chicken is great! Start with some known chicken recipes, which include cooking times and spice/marinade combinations. Once you try a few, you'll get an idea of how to experiment on your own.
+
+]
+Fact-check the claim "Beef crust dries because of overcooking".{{user_end}} {{assistant_start}}The fact-checking result is "SUPPORTS".{{assistant_end}}
+
+=====
+{{user_start}}User: I'm cooking Gazpacho. Can I use my blender for food processing the ingredients?
+Chatbot: I would not suggest doing so. Gazpacho made in a blender is often too smooth. Traditional Gazpacho has a slightly chunky texture, which a food processor is better suited to achieve. The pulse feature on food processors allows for better control over the consistency, ensuring you don't over-process the vegetables into a puree.
+[You search the website to fact-check the claim "blender is not suggested to use for processing the ingredients in Gazpacho"
+[You get these articles from the website:
+    Question: Can I use my blender for food processing the ingredients in my Gazpacho?
+    Answer at 2016-06-28T15:56 [voting=8]: The main difference between a food processor and a blender is its shape and how the food is mixed while it is being "cut up". In a blender, it relies on the funneling action of liquid to mix the food around. Otherwise only the bottom gets blended while the top stays solid.
+
+    Question: Can I use my blender for food processing the ingredients in my Gazpacho?
+    Answer at 2016-06-28T15:58: You absolutely can. For this use case, any tool with a fast-spinning blade that creates a fine puree is suitable, regardles whether it's a food processor, blender or immersion (stick) blender.
+
+]
+Fact-check the claim "blender is not suggested to use for processing the ingredients in Gazpacho".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+The purpose of this claim: "Explain the blender's role in making Gazpacho."
+The supported claim for this purpose: "You can use blender to process the ingredients in Gazpacho."{{assistant_end}}
+
+=====
+{{user_start}}User: How should I prepare catfish?
+Chatbot: If you bought whole catfish, you'd first need to clean it. Remove the scales, gut the fish, and take out all the internal organs. Rinse the inside and outside of the catfish with cold water. Cut off the head and tail if desired, and fillet the fish if you prefer boneless pieces.
+[You search the website to fact-check the claim "You need to remove the scales of the catfish and gut it."]
+[You get these articles from the website:
+    Question: Best method to prepare catfish (very soft flesh)?
+    Answer at 2011-05-17T13:22 [voting=3]: Dredging in lightly salted cornmeal and then frying (shallow frying is fine, but deep frying is magical) is an absolute classic in the Southern US, where catfish eating is big. I usually just put the plain filets in the cornmeal without first dipping in egg or milk. I don't think it's necessary--though I'd go with milk if I were forced to use something. After dredging, I let them sit on a wire rack for a minute or so before frying to set the cornmeal (which I would do if using egg or milk also).
+
+    Question: Best method to prepare catfish (very soft flesh)?
+    Answer at 2011-05-16T21:38 [voting=1]: If you take the catfish steaks and wash and pat dry. If you want to flavour the fish you can rub some turmeric, chilli and coriander over it. Heat some vegetable oil in a frying pan and then cook for a couple of minutes until lightly brown. You can then drain on a bit of kitchen paper. Easy peasy and versatile.
+]
+Fact-check the claim "You need to remove the scales of the catfish and gut it.".{{user_end}} {{assistant_start}}The fact-checking result is "NOT ENOUGH INFO".
+The purpose of this claim: "Give information of cleaning catfish."
+The supported claim for this purpose: "NO IDEA"{{assistant_end}}
+
+=====
+{{user_start}}User: I'm planning to visit Japan with my newborn baby. Is it suitable for me to bring my baby on Japanese train?
+Chatbot: Yes, you can bring your baby on the train. You may take some food with you to comfort your baby if he starts to make noise.
+[You search the website to fact-check the claim "Bring food to comfort babies on Japanese train."]
+[You get these articles from the website:
+	Question: Japanese train etiquette: Is it acceptable to take a baby in the Shinkansen Green Car? Context of the question: The green carriage is of course first class. This would be our first preference with our 5 month old baby in lap, because of the presumably larger toilets for changing and whatnot. However, our baby can cry a lot sometimes. Speaking in terms of Japanese culture, should we avoid Green class tickets if we are taking aboard a potentially disruptive baby?
+	Answer at 2015-02-18T23:34 [voting=15]: Yes, it is acceptable. However, it is etiquette that if the baby does start to make noise that you take it to the "deck" area beyond the doors (where the bathrooms, telephone, vending machines, etc.) are. This is the same protocol if you have to make or receive a telephone call, want to have a loud conversation with your seatmate, or do anything that might disturb other passengers. I should note that this has nothing to do with the green car -- the main cars nominally operate under these protocols, it's just that the other passengers (and conductors) are less likely to enforce them.
+
+]
+Fact-check the claim "Bring food to comfort babies on Japanese train".{{user_end}} {{assistant_start}}The fact-checking result is "NOT ENOUGH INFO".
+The purpose of this claim: "Give suggestion for bringing babies on Japanese train."
+The supported claim for this purpose: "You can take your baby to the 'deck' area beyond the doors if your baby starts to make noise."{{assistant_end}}
+
+=====
+{{user_start}}User: I'm applying for a visa online to travel to UK. Should I mention my friend who will travel with me but hasn't have a visa yet?
+Chatbot: Based on the community's suggestion, it's better to answer all the questions in the visa application honestly and mention your friend's situation if required. But not feel nervous, this information is not so important to your visa application.
+[You search the website to fact-check the claim "Information of friend traveling together is not important for UK online visa application."]
+[You get these articles from the website:
+	Question: UK online visa application: travelling "with" someone who doesn't have visa "yet". Context of the question: I am filling in the UK online visa application on visa4uk.gov.uk. They ask if I am travelling "with" anyone. My plans have been made in conjunction with someone else, we arrive at the same time and leave at the same time and some of our tickets have both our names on them although our movements will differ some of the time, and we are doing separate interviews. I would like to give them every detail possible to as not to be accused of withholding information. However there is this question about "does this person have a valid visa for the UK?". The answer is "not yet", he will not have a visa until his own application process is complete (just like me). However the options are "yes" and "no". So the correct answer is (currently) "no". Will this cause my own application hassles?
+	Answer at 2015-05-27T12:24 [voting=16]: In general, they are trying to find out if, for example, a child is travelling with their parent or if a person is travelling with their spouse. Also they are trying to establish the person's premise for visiting the UK and sometimes if a person is travelling with a group the info can be useful. Finally, the info is helpful in understanding the applicant's connection to the UK (if there is one) and if their visit is contingent on another person getting a visa. Based upon what you wrote, you are travelling with a friend/companion. You would answer the question honestly and check the 'NO' box if the person does not have a valid UK visa. Optionally, you can then go to Part 9 of the form and enter a brief explanation of how and when your friend/companion will apply for their visa. In fact you can simply reword your text above (i.e., your question) and copy it to Part 9. It is OK to be explicit about your relationship with your friend/companion because it helps establish the premise of both your visits.
+
+]
+Fact-check the claim "Information of friend traveling together is not important for UK online visa application". {{user_end}} {{assistant_start}}The fact-checking result is "NOT ENOUGH INFO".
+The purpose of this claim: "Explain what information is important to UK online visa application."
+The supported claim for this purpose: "Such information is for understanding the applicant's connection to the UK."{{assistant_end}}
+
+=====
+{% block input %}
+{{user_start}}Chatbot: {{ original_reply }}
+[You search the website to fact-check the claim "{{ claim }}"]
+[You get these articles from the website:
+{% for title in evidence_titles %}
+    {{ title }}
+    {{ evidence_texts[loop.index-1] | truncate(1000, False)}}{# truncate to avoid edge case where some paragraphs are extremely long #}
+
+{% endfor %}
+]
+Fact-check the claim "{{ claim }}".{{user_end}}{% endblock %}

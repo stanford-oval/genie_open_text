@@ -1,0 +1,47 @@
+name: wiki_llm
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - faiss-cpu
+  - pip=21.0
+  - pytorch=1.13.1
+  - torchaudio=0.13.1
+  - torchvision=0.14.1
+  - cudatoolkit=11.3
+  - gcc=9.4.0
+  - gxx=9.4.0
+  - make
+  - pip:
+    - bitarray
+    - datasets
+    - evaluate
+    - sacrebleu
+    - gitpython
+    - jupyter
+    - jupyterlab
+    - ninja
+    - scipy
+    - spacy
+    - tqdm
+    - transformers
+    - ujson
+    - bs4
+    - nltk
+    - boto3
+    - pytorch_pretrained_bert
+    - pyserini
+    - openai>=0.27.4
+    - Flask
+    - flask_restful
+    - flask-cors
+    - flask-limiter
+    - pymongo
+    - tenacity
+    - python-dateutil
+    - matplotlib
+    - text-generation
+    - py7zr

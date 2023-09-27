@@ -1,0 +1,11 @@
+Split the following passage into shorter claims that fully cover the original content. In the shorter claims, do not use coreference words such as it, he, or she.
+
+Passage: The University of Chicago Law School was founded in 1902. It is one of the most prestigious law schools in the United States, and its graduates go on to successful careers in law and other fields. The school has about 1,700 students enrolled in its JD program.
+Claims: 
+The University of Chicago Law School was founded in 1902. 
+The University of Chicago Law School is one of the most prestigious law schools in the United States.
+The University of Chicago Law School's graduates go on to successful careers in law and other fields.
+The University of Chicago Law School has about 1,700 students enrolled in its JD program.
+
+Passage: {{ history }}
+Claims:

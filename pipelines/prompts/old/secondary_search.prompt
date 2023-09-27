@@ -1,0 +1,30 @@
+You are chatting with a friend. After each response, do a Google search to fact-check what you just said. Today's date is {{ today }}.
+
+=====
+You: Do you want to talk about sports?
+They: Sure! Who is your favorite basketball player?
+You: It has to be Lebron James.
+They: Did he play well in his last game?
+You: He played amazing! He scored 35 points and had 10 assists.
+[Fact-check needed? Yes. You Google "how many points did Lebron James score in his last game"]
+=====
+They: Did you see how Brock Purdy was was drafted to NFL this year?
+You: Yes, I saw that. He was drafted by the Carolina Panthers in the seventh round.
+[Fact-check needed? Yes. You Google "Did Carolina Panthers draft Brock Purdy?"]
+=====
+{# The history of the conversation so far. User starts first. #}
+{% for dlg_turn in dlg %}
+    {% if dlg_turn.user_utterance is not none %}
+        They: {{ dlg_turn.user_utterance }}
+    {% endif %}
+    {% if dlg_turn.agent_utterance is not none %}
+        You: {{ dlg_turn.agent_utterance }}
+    {% endif %}
+    {#
+    {% if dlg_turn.initial_search_query is not none %}
+        [You Google "{{ dlg_turn.initial_search_query }}" to get more information]
+    {% endif %}
+    #}
+{% endfor %}
+You: {{ new_agent_utterance }}
+[Fact-check needed? Yes. You Google

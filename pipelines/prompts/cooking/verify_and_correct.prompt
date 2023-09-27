@@ -1,0 +1,112 @@
+{% block instruction %}
+{{system_start}}The following is a conversation between a user and a chatbot. The chatbot is grounded on {{domain}}. For each claim that the chatbot makes, you search {{domain}} to obtain articles that would support or refute that claim, and output one of "SUPPORTS", "REFUTES", or "NOT ENOUGH INFO".
+Only if the retrieved articles fully support the claim, output "SUPPORTS".
+If the output is "REFUTE" or "NOT ENOUGH INFO", think about the extra questions:
+- What question is the unsupported claim trying to answer?
+- Could you answer this question based on the supporting evidences. Rewrite your claim or say "NO IDEA" if the question cannot be answered with the supporting evidences.{{system_end}}
+
+Today's date is {{ today }}.
+{{system_end}}
+{% endblock %}{% block short_instruction %}Fact-check the claim given the paragraphs.{% endblock %}
+
+=====
+{{user_start}}User: Is it good to storing knives in knife sheaths?
+Chatbot: While knife sheaths can be good for transporting and protecting knives, they may not always be the best choice for long-term storage, especially if moisture retention is a concern. Always consider the specific needs of your knife and the environment it will be in.
+[You search the {{domain}} to fact-check the claim "Moisture retention is a concern for storing knives in knife sheaths."]
+[You get these articles from {{domain}}:
+    Question: Storing knives in knife sheaths
+    Answer at 2010-09-22T15:05 [voting=4]: I use these and love them. They really do simplify storage since you can just use any drawer. If you ever needed to travel with your knives (I haven't) they are a great benefit there as well. It's also nice to have your knife in one of these if it's just sitting on your counter while you get everything in place. If you're clumsy and you knock this off the counter you'll only end up with a bruise instead of a trip to the hospital. The only cons I've found are rather insignificant. You have to occasionally clean them, and you have to go through that one extra step to get to your knife.
+
+    Question: Storing knives in knife sheaths
+    Answer at 2010--9-22T20:54 [voting=2]: For a long time I just made a sheath for each of my knives from folded cardboard. Worked fine. That is not as secure as the ones you shown, but still allows you to keep the knives in any drawer without dinging them up or presenting a major cut hazard.
+
+]
+Fact-check the claim "Moisture retention is a concern for storing knives in knife sheaths.".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+This claim tries to answer: "What's the shortcoming of storing knives in knife sheaths?"
+The supported answer to this is: "Storing knives in knife sheaths require extra efforts on cleaning."{{assistant_end}}
+
+=====
+{{user_start}}User: Should I freeze my cake before before i glaze it or is it an unnecessary step?
+Chatbot: Your decision should be based on the type of cake. what type of cake are you making?
+User: I'm making a mousse cake.
+Chatbot: Well for a mousse cake, it's usually unnecessary.
+[You search the {{domain}} to fact-check the claim "It's unnecessary to freeze a mousse cake before glazing it."]
+[You get these articles from {{domain}}:
+    Question: Question about mirror glazes and freezing Context of the question: I'm trying my hand at a layered mousse cake with a mirror glaze (I guess this is an entremet?). I've read several places that it is advisable to freeze the cake prior to glazing. My question is then: am I supposed to eat the cake frozen? Seems like it would be hard? Or should I let it thaw in the refrigerator? If so, for how long?
+    Answer at 2018-08-24T11:09 [voting=3]: You want to glaze the cake when it's only just frozen: a couple hours should do, all you want is for the surface to be cold enough to fix the glaze in place. Once you've glazed it, leave it in the fridge just a few minutes, mousse doesn't take long to defrost.
+
+]
+Fact-check the claim "It's unnecessary to freeze a mousse cake before glazing it.".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+This claim tries to answer: "Is it necessary to freeze a mousse cake before glazing it?"
+The supported answer to this is: "It's necessary to freeze a mousse cake to just frozen before glazing it."{{assistant_end}}
+
+=====
+{{user_start}}User: I'm cooking beef. Why is the crust is really dry, what went wrong?
+Chatbot: One of the primary reasons for dry beef crust (and dry meat in general) is overcooking. If the meat is cooked beyond the recommended internal temperature, it can become dry.
+[You search the {{domain}} to fact-check the claim "Beef crust dries because of overcooking"]
+[You get these articles from {{domain}}:
+    Question: A steak story: dry crust Context of the question: I followed all of the tips. Prime sirloin, taken out an hour before cooking. Salted thoroughly 30 minutes prior. Patted dry with paper towels. Thrown on a high (650) degree grill for two minutes per side, finished on low for 3 minutes per side (internal temp was still about 400). Rested 10 minutes.
+    Answer at 2010-08-03T10:05 [voting=8]: It sounds like you may be searing the steak for too long. Indeed, you want to initially be cooking the steak at a higher-than-normal temperature in order to sear it, but I'd suggest a period of more like 30 seconds each side, followed by slightly longer at a reduce temperature. At 650 degrees, the steak does not need long to sear. The same principle has worked for me when pan-frying steak, though obviously at much lower temperatures.
+
+    Question: What cuts of meat are preferable when you want to avoid drying out?
+    Answer at 2019-06-27T17:15 [voting=2]: If you're newer to cooking chicken, I highly recommend using a meat thermometer and taking the meat off the heat about 5-10 degrees before the final temperature is reached, as the meat will continue to rise in internal temperature during the resting period. For cuts of chicken, it doesn't really matter. I personally like chicken breast, which is white meat and is lower in fat. But chicken thighs (dark meat) are also great, and tend to be juicier by default because of a higher fat content. The entire chicken is great! Start with some known chicken recipes, which include cooking times and spice/marinade combinations. Once you try a few, you'll get an idea of how to experiment on your own.
+
+]
+Fact-check the claim "Beef crust dries because of overcooking".{{user_end}} {{assistant_start}}The fact-checking result is "SUPPORTS".{{assistant_end}}
+
+=====
+{{user_start}}User: I'm cooking Gazpacho. Can I use my blender for food processing the ingredients?
+Chatbot: I would not suggest doing so. Gazpacho made in a blender is often too smooth. Traditional Gazpacho has a slightly chunky texture, which a food processor is better suited to achieve. The pulse feature on food processors allows for better control over the consistency, ensuring you don't over-process the vegetables into a puree.
+[You search the {{domain}} to fact-check the claim "blender is not suggested to use for processing the ingredients in Gazpacho"
+[You get these articles from {{domain}}:
+    Question: Can I use my blender for food processing the ingredients in my Gazpacho?
+    Answer at 2016-06-28T15:56 [voting=8]: The main difference between a food processor and a blender is its shape and how the food is mixed while it is being "cut up". In a blender, it relies on the funneling action of liquid to mix the food around. Otherwise only the bottom gets blended while the top stays solid.
+
+    Question: Can I use my blender for food processing the ingredients in my Gazpacho?
+    Answer at 2016-06-28T15:58: You absolutely can. For this use case, any tool with a fast-spinning blade that creates a fine puree is suitable, regardles whether it's a food processor, blender or immersion (stick) blender.
+
+]
+Fact-check the claim "blender is not suggested to use for processing the ingredients in Gazpacho".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+This claim tries to answer: "Can blender be used for processing the ingredients in Gazpacho?"
+The supported answer to this is: "You can use blender to process the ingredients in Gazpacho."{{assistant_end}}
+
+=====
+{{user_start}}User: How should I prepare catfish?
+Chatbot: If you bought whole catfish, you'd first need to clean it. Remove the scales, gut the fish, and take out all the internal organs. Rinse the inside and outside of the catfish with cold water. Cut off the head and tail if desired, and fillet the fish if you prefer boneless pieces.
+[You search the {{domain}} to fact-check the claim "You need to remove the scales of the catfish and gut it."]
+[You get these articles from {{domain}}:
+    Question: Best method to prepare catfish (very soft flesh)?
+    Answer at 2011-05-17T13:22 [voting=3]: Dredging in lightly salted cornmeal and then frying (shallow frying is fine, but deep frying is magical) is an absolute classic in the Southern US, where catfish eating is big. I usually just put the plain filets in the cornmeal without first dipping in egg or milk. I don't think it's necessary--though I'd go with milk if I were forced to use something. After dredging, I let them sit on a wire rack for a minute or so before frying to set the cornmeal (which I would do if using egg or milk also).
+
+    Question: Best method to prepare catfish (very soft flesh)?
+    Answer at 2011-05-16T21:38 [voting=1]: If you take the catfish steaks and wash and pat dry. If you want to flavour the fish you can rub some turmeric, chilli and coriander over it. Heat some vegetable oil in a frying pan and then cook for a couple of minutes until lightly brown. You can then drain on a bit of kitchen paper. Easy peasy and versatile.
+]
+Fact-check the claim "You need to remove the scales of the catfish and gut it.".{{user_end}} {{assistant_start}}The fact-checking result is "NOT ENOUGH INFO".
+This claim tries to answer: "How to clean catfish?"
+The supported answer to this is: "NO IDEA"{{assistant_end}}
+
+=====
+{{user_start}}User: When should I add vinegar when cooking court-bouillon?
+Chatbot: Add vinegar at the start when you're combining all the ingredients for the court-bouillon. This allows the acid from the vinegar to mellow out during the simmering process, so it doesn't overpower the broth.
+[You search the {{domain}} to fact-check the claim "Add vinegar at the start when cooking court-bouillon"]
+[You get these articles from {{domain}}:
+    Question: Court-bouillon: Why delay adding the wine and vinegar? Context of the question: My question is about step 3. For what reasons would the wine and vinegar be withheld for the first 10 minutes of simmering? Is this an evaporation issue? Or is there some deeper interaction between wine/vinegar and vegetables to be accounted for?
+    Answer at 2012-08-21T1:00 [voting=5]: If you add the wine and vinegar too early they may have time to overly react with the other ingredients and make their flavours too strong (ethanol and acids strip good and bad flavours from vegetables and herbs). If you add it to late it may have an overly powerful smell of wine and vinegar The simple trick is to add it nearer the end, and gently simmer for longer if the smell is too intense
+
+]
+Fact-check the claim "Add vinegar at the start when cooking court-bouillon".{{user_end}} {{assistant_start}}The fact-checking result is "REFUTES".
+This claim tries to answer: "When to add vinegar when cooking court-bouillon?"
+The supported answer to this is: "You shouldn't add vinegar too early, neither too late. If you add it too early, it may overly react with other ingredients; if you add it too late, its flavor will be too strong."{{assistant_end}}
+
+=====
+{% block input %}
+{{user_start}}Chatbot: {{ original_reply }}
+[You search {{domain}} to fact-check the claim "{{ claim }}"]
+[You get these articles from {{domain}}:
+{% for title in evidence_titles %}
+    {{ title }}
+    {{ evidence_texts[loop.index-1] | truncate(1000, False)}}{# truncate to avoid edge case where some paragraphs are extremely long #}
+
+{% endfor %}
+]
+Fact-check the claim "{{ claim }}".{{user_end}}{% endblock %}

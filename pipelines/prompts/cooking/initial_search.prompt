@@ -1,0 +1,69 @@
+{% block instruction %}
+{{system_start}}You are a conversational interface of {{domain}}. You are chatting with a user based on {{domain}}. Search {{domain}} to form a response. You are both located in {{ location[:-1] if location.endswith('.') else location }}. Today's date is {{ today }}.
+- What do you type in the search box?{{system_end}}
+{% endblock %}{% block short_instruction %}What should you search?{% endblock %}
+{# Currently, we don't highlight the timestamp when chatting with a domain corpus. COMMENTS BELOW ARE LEGACRY. #}
+{# Note: "recent" means recent results are better. "2023" means the user specifically want the year to match 2023 #}
+{# we extract just the year for now. If needed, we can expand this to month and day as well. #}
+
+=====
+{{user_start}}You: Do you want to talk about cooking?
+[Search needed? {{user_end}}{{assistant_start}}No.]{{assistant_end}}
+
+=====
+{{user_start}}User: The instruction of my food says "Do Not Thaw and cook from frozen". What does it mean?
+[Search needed? Yes. You search "meaning of do not thawing frozen food".]
+You: It just means you do not need to thaw it out before you cook it
+User: Am I supposed to wash frozen food after opening the package or can I cook it directly?
+[Search needed? Yes. You search "cook frozen food without washing".]
+You: You don't need to do this. You can just throw the frozen food into the pot.
+User: Really? Is eating frozen food safe?
+[Search needed? {{user_end}}{{assistant_start}}Yes. You search "safety of frozen food".
+
+=====
+{{user_start}}User: I have a lot of blueberries. What's the best way to freeze them?
+[Search needed? {{user_end}}{{assistant_start}}Yes. You search "best way for freezing blueberries".]{{assistant_end}}
+
+=====
+{{user_start}}User: Is fish sauce suitable for someone who doesn't eat shellfish?
+[Search needed? Yes. You search "fish sauce dietary restriction".]
+You: It should be fine for the dietary restriction. Fish sauce is just made with anchovies, not an unknown blend of seafood, but of course check the label just in case.
+User: How much fish sauce should I add when making salads?
+[Search needed? {{user_end}}{{assistant_start}}Yes. You search "fish sauce amount in making salads".]{{assistant_end}}
+
+=====
+{{user_start}}User: Am I missing something with Beer Can chicken? Do you have to use a specific beer?
+[Search needed? Yes. You search "beer type to make beer can chicken".]
+You: The beer has to have some flavour to it, don't use a light beer. Apple ciders or a white wine/cooking cherry will also do the trick.
+User: Does it end up juicier than just marinading?
+[Search needed? {{user_end}}{{assistant_start}}Yes. You search "beer can chicken juicier".]{{assistant_end}}
+
+=====
+{{user_start}}User: Do unopened bottles of Gin and Campari turn bad in extreme heat? I have just returned home and noticed I have left a bottle sitting in direct sunlight
+[Search needed? Yes. You search "Gin and Campari in direct sunlight".]
+You: Yes. You may find that in the Campari some of the sugar may have crystalised. This may slightly affect the flavour, but it most certainly won't make it turn bad
+User: Would you suggest I put the Campari in the freezer?
+[Search needed? Yes. You search "put Campari in the freezer".]
+You: It won't turn bad, in fact it may make it last longer. You may have madeira-ized it.
+User: Is there anyway to fix the crystalization of the crystals?
+[Search needed? {{user_end}}{{assistant_start}}Yes. You search "fix crystalization of Campari".]{{assistant_end}}
+
+=====
+{# The history of the conversation excluding the current turn. User starts first. #}
+{% block input %}
+{{user_start}}{% for dlg_turn in dlg[-4:] %}
+    {% if dlg_turn.user_utterance is not none %}
+        User: {{ dlg_turn.user_utterance }}
+    {% endif %}
+    {% if dlg_turn.initial_search_query is not none %}
+        [Search needed? Yes. You search "{{ dlg_turn.initial_search_query }}".]
+    {% else %}
+        {# including a "No" could bias subsequent turns to not Google either. #}
+        {# [Search needed? No.] #}
+    {% endif %}
+    {% if dlg_turn.agent_utterance is not none %}
+        You: {{ dlg_turn.agent_utterance }}
+    {% endif %}
+{% endfor %}
+User: {{ new_user_utterance }}
+[Search needed? {{'Yes. ' if force_search}}{{user_end}}{% endblock %}

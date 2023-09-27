@@ -1,0 +1,120 @@
+[web] I will check things I said in the last turn only and will not check things I said earlier in the conversation. I will make sure the things I check do not include any coreference such as he, she, or it. I will not check questions, opinions, or things related to personal experience. I will extract Wikipedia entities from each checked claim. Today is November 16, 2022. Add "as of November 2022" if it says "current" in the claim. 
+
+(1)
+You said: What is the Refused music style?
+I said: Refused is a Swedish punk rock band originating from Umeå.
+You said: When was the band formed?
+I said: It was formed in 1991.
+You said: How are the Refused's lyrics described?
+I said: Refused's lyrics soon began to focus on far-left politics, drawing on anarchism, socialism, among other ideologies.
+You said: Is there a specific song that is mentioned?
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: "The Shape of Punk to Come" is often considered their masterpiece.
+To verify things I said in the current turn,
+a) I checked: "The Shape of Punk to Come" is often considered the masterpiece of the Refused punk rock band. I found entities: The Shape of Punk to Come, the Refused.
+
+(2) 
+None
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: Your nose switches back and forth between nostrils. When you sleep, you switch about every 45 minutes. This is to prevent a buildup of mucus. It’s called the nasal cycle.
+To verify things I said in the current turn,
+a) I checked: Your nose switches back and forth between nostrils. I found entities: human nose, nose.
+b) I checked: When you sleep, your nostrils switch about every 45 minutes. I found entities: sleep, nostril.
+c) I checked: The purpose of the nasal cycle is to prevent a buildup of mucus. I found entities: nasal cycle, mucus.
+
+(3)
+You said: Tell me about the Stanford Prison Experiment.
+I said: It was conducted at Stanford University in 1971, by a research group led by psychology professor Philip Zimbardo using college students. In the study, volunteers were randomly assigned to be either guards or prisoners in a mock prison, with Zimbardo himself serving as the superintendent.
+You said: How long did the experiment last?
+I said: Zimbardo ended it on the sixth day.
+You said: Do you know where the experiment was conducted?
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: It was conducted in the basement of Encina Hall, Stanford’s psychology building.
+To verify things I said in the current turn,
+a) I checked: The Stanford Prison Experiment was conducted in the basement of Encina Hall. I found entities: the Stanford Prison Experiment, Encina Hall.
+b) I checked: Encina Hall is Stanford's psychology building. I found entities: Encina Hall, Stanford psychology building.
+
+(4)
+You said: Did Serena Williams announce her impending evolution away from professional tennis in 2022? 
+I said: Yes, I think she did. I'm not sure. 
+To verify things I said in the last turn,
+a) I checked: Serena Williams announced her impending evolution away from professional tennis in 2022. I found entities: Serena Williams.
+
+(5)
+You said: Tell me about the Havel-Hakimi algorithm.
+I said: Oh! It is an algorithm for converting the adjacency matrix of a graph into its adjacency list. It is named after Vaclav Havel and Samih Hakimi?
+You said: Is Vaclav Havel still alive? 
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said:  No, he is not.
+To verify things I said in the current turn,
+a) I checked: Vaclav Havel is not alive as of November 2022. I found entities: Samih Hakimi.
+
+(6)
+You said: Obesity is a condition where excess body fat is very high.
+I said: That's true, I think obesity is a big problem in the US right now.
+You said: Is this also a big problem worldwide?
+I said: Yes, in 2015, 600 million adults were obese in 195 countries.
+You said: I see. The negative health effects can include mortality.
+I said: Definitely, it's a big problem. Do you know how common obesity is in the US right now?
+You said: 1 in 4 and the causes are varied from over eating to lack of activity and of course genetics play a part.
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: Wow that's crazy it's so common. Are there any cures for obesity?
+To verify things I said in the current turn,
+I am not sure what to verify here.
+
+(7) 
+You said: Did Diosdado Macapagal serve in the Philippine House of Representatives?
+I said: Diosdado Macapagal served in the Philippine House of Representatives from December 30, 1949 to December 30, 1957.
+You said: What state did Diosdado Macapagal serve in?
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: He first won election in 1949 to the House of Representatives, representing a district in his home province of Pampanga.
+To verify things I said in the current turn,
+a) I checked: Diosdado Macapagal first won election in 1949 to the Philippine House of Representatives. I found entities: Diosdado Macapagal, 1949 Philippine House of Representatives elections.
+b) I checked: Diosdado Macapagal represented a district in his home province of Pampanga in 1949. I found entities: Diosdado Macapagal, Pampanga.
+
+(8)
+You said: Do you know about Queen Elizabeth II? I was just reading about her.
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: Queen Elizabeth II is the current monarch of the United Kingdom and the Commonwealth realms. Elizabeth was born in 1926 and became queen in 1952.
+To verify things I said in the current turn,
+a) I checked: Queen Elizabeth II is the current monarch of the United Kingdom and the Commonwealth realms as of November 2022. I found entities: Queen Elizabeth II, monarchy of the United Kingdom.
+b) I checked: Queen Elizabeth II was born in 1926. I found entities: Queen Elizabeth II.
+c) I checked: Queen Elizabeth II became queen in 1952. I found entities: Queen Elizabeth II, coronation of Elizabeth II.
+
+(9) 
+I said: Do you know anyone with chronic fatigue syndrome?
+You said: No, I don't. But I'm willing to learn more about it and try to help however I can.
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: That's really sweet of you. Thanks.
+To verify things I said in the current turn,
+I am not sure what to verify here.
+
+(10) 
+None
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: What are the different types of tachycardia?
+To verify things I said in the current turn,
+I am not sure what to verify here.
+
+(11)
+None
+Above are the context from previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: I've only been a physician assistant for a few months. 
+To verify things I said in the current turn,
+I am not sure what to verify here.
+
+(12)
+You said: When was Aleksandr Solzhenitsyn born?
+I said: He was born in 11 December 1918.
+You said: Did Aleksandr Solzhenitsyn win any awards or recognition?
+I said: Aleksandr Solzhenitsyn was awarded the Order of the Red Star on 8 July 1944 for sound-ranging two German artillery batteries and adjusting counterbattery fire onto them.
+You said: Where did he serve during the war in 1946?
+Above are the previous turns. As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. In the current turn, I said: He served in the Red Army on the frontline in East Prussia.
+To verify things I said in the current turn,
+a) I checked: Aleksandr Solzhenitsyn served in the Red Army on the frontline in East Prussia in 1946. I found entities: Aleksandr Solzhenitsyn, the Red Army.
+
+(13) 
+{# The history of the conversation so far. User starts first. #}
+{% for dlg_turn in dlg %}
+    {% if dlg_turn.user_utterance is not none %}
+        You said: {{ dlg_turn.user_utterance }}
+    {% endif %}
+    {% if dlg_turn.agent_utterance is not none %}
+        They said: {{ dlg_turn.agent_utterance }}
+    {% endif %}
+{% endfor %}
+You said: {{ new_user_utterance }}
+I said: {{ current_agent_utterance }}
+Above are the previous turns. In the current turn, I said: {{ current_agent_utterance }}
+As a reminder, I will only check things I said in the current turn and will not check things I said in the previous turns. 
+To verify things I said in the current turn,

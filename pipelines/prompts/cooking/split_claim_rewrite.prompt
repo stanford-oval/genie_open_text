@@ -1,0 +1,65 @@
+{% block instruction %}
+{{system_start}}You are chatting with a user based on {{domain}}. Rewrite the facts mentioned in the last response into self-contained sentences.
+Exclude opinions, or subjective statements.
+Today's date is {{ today }}.{{system_end}}
+{% endblock %}{% block short_instruction %}Identify the factual claims in the last response.{% endblock %}
+{# Note: "recent" means recent results are better. "2023" means the user specifically want the year to match 2023 #}
+{# we extract just the year for now. If needed, we can expand this to month and day as well. #}
+
+=====
+{{user_start}}User: The instruction of my food says "Do Not Thaw and cook from frozen". What does it mean?
+You: It just means you do not need to thaw it out before you cook it
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}
+{{assistant_start}}- "Do Not Thaw and cook from frozen" means you do not need to thaw it out before you cook it.{{assistant_end}}
+
+=====
+{{user_start}}User: I like eating blueberries.
+You: Absolutely! Blueberries are very tasty.
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}
+{{assistant_start}}Nothing.{{assistant_end}}
+
+=====
+{{user_start}}User: What can I use instead of clam juice?
+You: Maybe you can try fish sauce.
+User: Is that suitable for someone who doesn't eat shellfish?
+You: It should be fine for the dietary restriction. Fish sauce is just made with anchovies, not an unknown blend of seafood, but of course check the label just in case.
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}
+{{assistant_start}}- Fish sauce is just made with anchovies.
+- Anchovies are fine for someone who doesn't eat shellfish.{{assistant_end}}
+
+=====
+{{user_start}}User: Am I missing something with Beer Can chicken? Do you have to use a specific beer?
+You: The beer has to have some flavour to it, don't use a light beer. Apple ciders or a white wine/cooking cherry will also do the trick.
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}
+{{assistant_start}}- The beer for beer can chicken needs to have some flavour.
+- Apple ciders or a white wine/cooking cherry can be used to make beer can chicken.{{assistant_end}}
+
+=====
+{{user_start}}User: Do unopened bottles of Gin and Campari turn bad in extreme heat? I have just returned home and noticed I have left a bottle sitting in direct sunlight
+You: Yes. You may find that in the Campari some of the sugar may have crystalised. This may slightly affect the flavour, but it most certainly won't make it turn bad
+User: Would you suggest I put the Campari in the freezer?
+You: It won't turn bad, in fact it may make it last longer. You may have madeira-ized it.
+{{assistant_start}}- Putting the Campari in the freezer won't make it bad.
+- Putting the Campari in the freezer may make it last longer.
+- Putting the Campari in the freezer may madeira-ize it.{{assistant_end}}
+
+=====
+{{user_start}}User: What variety of squash produces "flor de calabaza"?
+You: Sorry, as an AI, my knowledge is still limited. I don't know "flor de calabaza".
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}
+{{assistant_start}}Nothing.{{assistant_end}}
+
+=====
+{# The history of the conversation so far. User starts first. Only the last three turns are given, because longer conversations confuse the LLM, and are not needed for fact-checking. #}
+{% block input %}
+{{user_start}}{% for dlg_turn in dlg[-1:] %}
+    {% if dlg_turn.user_utterance is not none %}
+        User: {{ dlg_turn.user_utterance }}
+    {% endif %}
+    {% if dlg_turn.agent_utterance is not none %}
+        You: {{ dlg_turn.agent_utterance }}
+    {% endif %}
+{% endfor %}
+User: {{ new_user_utterance }}
+You: {{ current_agent_utterance }}
+Rewrite the facts mentioned in the last response into self-contained sentences:{{user_end}}{% endblock %}

@@ -1,0 +1,62 @@
+[web] I will check some things you said.
+
+(1) Context: They said: Do you know about nose switches?
+You said: Your nose switches back and forth between nostrils. When you sleep, you switch about every 45 minutes. This is to prevent a buildup of mucus. It’s called the nasal cycle.
+I checked: Your nostrils switch about every 45 minutes when you sleep.
+I found this article: Although we don’t usually notice it, during the nasal cycle one nostril becomes congested and thus contributes less to airflow, while the other becomes decongested. On average, the congestion pattern switches about every 2 hours, according to a small 2016 study published in the journal PLOS One.
+Your nose’s switching time is about every 2 hours, not 45 minutes.
+This disagrees with what you said.
+
+(2) Context: They said: Can you tell me more about the Little House books, like the author and the publisher?
+You said: The Little House books were written by Laura Ingalls Wilder. The books were published by HarperCollins.
+I checked: The Little House books were published by HarperCollins.
+I found this article: These are the books that started it all -- the stories that captured the hearts and imaginations of children and young adults worldwide. Written by Laura Ingalls Wilder and published by HarperCollins, these beloved books remain a favorite to this day. Several book series and some single novels by other writers have been published for children, young adults and adult readers. They provide fictionalized accounts of the lives of Wilder's great-grandmother Martha Morse Tucker, grandmother Charlotte Tucker Quiner, mother Caroline Ingalls, and daughter Rose Wilder Lane's childhood and teenage years, as well as Wilder's own missing years—those portions of her life not featured in her novels, including most of her adult life. One story not written by Wilder is Old Town in the Green Groves by Cynthia Rylant. It tells the story of the "lost little house" years.
+The Little House books were published by HarperCollins.
+This agrees with what you said.
+
+(3) Context: They said: What is the Stanford Prison Experiment? You said: The Stanford Prison Experiment is a psychological study to observe the behaviors of conflict and violence that happen between inmates and prisoners in real prisons. They said: Where was it conducted?
+You said: The Stanford Prison Experiment was conducted in the basement of Jordan Hall, Stanford’s psychology building.
+I checked: Stanford Prison Experiment was conducted in Jordan Hall.
+I found this article: Carried out August 15-21, 1971 in the basement of Jordan Hall, the Stanford Prison Experiment set out to examine the psychological effects of authority and powerlessness in a prison environment. Participants were recruited from the local community with an ad in the newspapers that was placed by the research team offering male participants $15 per day to whoever wanted to participate in a "psychological study of prison life." Volunteers were chosen after assessments of psychological stability, and then randomly were assigned the roles of being prisoners or prison guards.[2] Critics have questioned the validity of these methods.
+The Stanford Prison Experiment was conducted in Jordan Hall.
+This agrees with what you said.
+
+(4) Context: They said: What is social work?
+You said: Social work is a profession that is based in the philosophical tradition of humanism. It is an intellectual discipline that has its roots in the 1800s.
+I checked: Social work has its roots in the 1800s.
+I found this article: Social work is an academic discipline and practice-based profession concerned with meeting the basic needs of individuals, families, groups, communities, and society as a whole to enhance their individual and collective well-being. Social work practice draws from areas, such as psychology, sociology, health, political science, community development, law, and economics to engage with systems and policies, conduct assessments, develop interventions, and enhance social functioning and responsibility. The ultimate goal of social work is the achievement of social justice. The Emergence and Growth of the Social work Profession<br><br> Social work’s roots were planted in the 1880s, when charity organization societies (COS) were created to organize municipal voluntary relief associations and settlement houses were established.
+Social work has its roots in the 1880s, not 1800s.
+This disagrees with what you said.
+
+(5) Context: They said: I'm learning about graph algorithms. You said: Have you heard of the Havel-Hakimi algorithm? They said: No, what is it?
+You said: The Havel-Hakimi algorithm is an algorithm for converting the adjacency matrix of a graph into its adjacency list. It is named after Vaclav Havel and Samih Hakimi.
+I checked: The Havel-Hakimi algorithm is an algorithm for converting the adjacency matrix of a graph into its adjacency list.
+I found this article: The Havel-Hakimi algorithm constructs a special solution if a simple graph for the given degree sequence exists, or proves that one cannot find a positive answer. This construction is based on a recursive algorithm. The algorithm was published by Havel (1955), and later by Hakimi (1962).
+Havel-Hakimi algorithm is for constructing a special solution if a simple graph for the given degree sequence exists, or proving that one cannot find a positive answer, not converting the adjacency matrix of a graph into its adjacency list.
+This disagrees with what you said.
+
+(6) Context: They said: What is your favorite song? You said: Sure, my favorite one is "Time of My Life"! They said: Who produced the song "Time of My Life"?
+You said: "Time of My Life" is a song by American singer-songwriter Bill Medley from the soundtrack of the 1987 film Dirty Dancing. The song was produced by Michael Lloyd.
+I checked: "Time of My Life" was produced by Michael Lloyd.
+I found this article: The song has won a number of awards, including the Academy Award for Best Original Song, the Golden Globe Award for Best Original Song, and the Grammy Award for Best Pop Performance by a Duo or Group with Vocals. On September 8, 2010, the original demo of this song, along with a remix by producer Michael Lloyd, was released as digital files in an effort to raise money for the Patrick Swayze Pancreas Cancer Resarch Foundation at Stanford University.
+"Time of My Life" was produced by Michael Lloyd.
+This agrees with what you said.
+
+(7) Context: They said: Why was Kelvin Hopins suspended from the Labor Party?
+You said: Kelvin Hopins was suspended from the Labor Party because he had allegedly sexually harassed and behaved inappropriately towards a Labour Party activist, Ava Etemadzadeh.
+I checked: Kelvin Hopins was suspeneded from the Labor Party because he had allegedly sexually harassed and behaved inappropriately towards a Labour Party activist, Ava Etemadzadeh.
+I found this article: Kelvin Hopkins was born in Leicester, son of physicist Harold Hopkins FRS. He was educated at Queen Elizabeth's Grammar School for Boys, Barnet, north London; he then attended the University of Nottingham where he was awarded a BA degree in Politics, Economics and Mathematics with Statistics. A former Labour MP has left the party before an inquiry into sexual harassment allegations against him was able to be concluded, the party has confirmed. Kelvin Hopkins was accused in 2017 of inappropriate physical contact and was suspended by the Labour party pending an investigation. Hopkins did not stand for re-election in the 2019 general election.
+Kelvin Hopins was suspended because he had allegedly sexually harassed and behaved inappropriately towards a Labour Party activist, Ava Etemadzadeh.
+This agrees with what you said.
+
+(8) Context: They said: Who led the British side in the battle of Lexington and Concord?
+You said: In the battles of Lexington and Concord, the British side was led by General Thomas Smith.
+I checked: In the battles of Lexington and Concord, the British side was led by General Thomas Smith.
+I found this article: Interesting Facts about the Battles of Lexington and Concord. The British were led by Lieutenant Colonel Francis Smith. There were 700 British regulars.
+The British side was led by Lieutenant Colonel Francis Smith, not General Thomas Smith.
+This disagrees with what you said.
+
+(9) Context: {{ context }}
+You said: {{ original_reply }}
+I checked: {{ claim }}
+I found this article: {{ evidence }}

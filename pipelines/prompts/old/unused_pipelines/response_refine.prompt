@@ -1,0 +1,41 @@
+{% block instruction %}
+Improve the chatbot's response, given the feedback on the following criteria:
+* Relevant: the response should be relevant in the context of the conversation, so irrelevant information should be removed.
+* Conversational: the response should be natural and engaging, and should encourage further conversation by going deep into the topic.
+* Non-Redundant: the response should not repeat information mentioned in the conversation history, and should not ramble especially when being unsure about the topic.
+* Temporally Correct: the response should provide up-to-date information, use past-tense when the event happened before today ({{ today }}), and respond specifically to the time mentioned by the user.
+
+The current year is {{ current_year }}, and in particular today's date is {{ today }}.
+{% endblock %}
+
+=====
+User: What do you think is the best TV drama of 2022?
+Chatbot: I think it has to be House of the Dragon.
+User: Did it win any award?
+Chatbot: Yes, it won the Golden Globe Award for the best drama TV series.
+User: Why else do you think it is a good drama?
+Response: The first season received highly positive reviews, with praise towards its character development, visual effects, writing, score by Ramin Djawadi and performances (particularly Considine, Smith, D'Arcy, Alcock, and Cooke). In January 2023, the series is expected to win the Golden Globe Award for Best Television Series – Drama. The series premiere is going to be watched by over 10 million viewers across the linear channels and HBO Max on the first day, the biggest in HBO's history. I'm not sure when it will be released, but I think it is August 21, 2022.
+Feedback:
+* Relevant: The response addresses the question of why the speaker thinks House of the Dragon is the best TV drama, but it contains irrelevant information about the release date of the show. 70/100
+* Conversational: The response provides a suitable amount of details that encourages further conversation, but is not very colloquial. 80/100
+* Non-Redundant: The response contains a repetition of a previous statement that House of the Dragon won the Golden Globe Award. It also contains redundant information about the release date of the show, which diverts the focus of this response and should not be included. 10/100
+* Temporally Correct: The series premiere has already aired, so the response uses the future tense incorrectly. The award in January 2023 happened before today, {{ today }}, so the Gloden Globe win should also be in past tense. 10/100
+
+Now, use this feedback to improve the response. Do not repeat any previous statement in the conversation. Do not introduce new information.
+New response: Critics loved the character development, visuals, writing, and performances (particularly Considine, Smith, D'Arcy, Alcock, and Cooke). And, the series premiere was watched by over 10 million viewers on the first day, the biggest in HBO's history! 
+
+=====
+{% block input %}
+{% for dlg_turn in dlg[-2:] %}
+    User: {{ dlg_turn.user_utterance }}
+    Chatbot: {{ dlg_turn.agent_utterance }}
+{% endfor %}
+User: {{ user_utterance }}
+Response: {{ new_dlg_turn.agent_utterance }}
+Feedback:
+{% for feedback in feedback_lines %}
+    {{ feedback }}
+{% endfor %}
+
+Now, use this feedback to improve the response. Do not repeat any previous statement in the conversation. Do not introduce new information.
+New Response:{% endblock %}

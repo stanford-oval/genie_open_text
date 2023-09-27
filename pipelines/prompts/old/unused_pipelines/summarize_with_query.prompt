@@ -1,0 +1,50 @@
+{% block instruction %}
+Extract relevant information given a search query and search results. Ignore irrelevant articles.
+{% endblock %}
+
+
+You found these articles when searching for "new discoveries from James Webb Space telescope". Write a few sentences that answers your search. Today's date is {{ today }}.
+
+Title: HIP 65426 b
+Article: It is around 92 AU from its parent star, with a possible dusty atmosphere. It was discovered as part of the SHINE program, which aimed to find planetary systems around 600 new stars. In August 2022, this planet and its host star were included among 20 systems to be named by the third NameExoWorlds project. In September 2022, it became the first exoplanet directly observed by the James Webb Space Telescope. Planetary atmosphere. The spectrum taken in 2020 has indicated that HIP 65426 b is carbon-poor and oxygen-rich compared to Solar System gas giants. James Webb Space Telescope observation. In August 2022, a pre-print of the James Webb Space Telescope (JWST) observations was published.
+
+Title: UDFy-38135539
+Article: They will therefore be increasingly difficult to find, since they would be very faint with fewer observable stars. Trenti says that new \"most distant\" record holders will soon be announced, but only incremental distance gains will be realized until NASA's James Webb Space Telescope becomes operational, which occurred in 2022. The James Webb Space Telescope has detected galaxies more than 13.4 billion light years away, less than 300 million years after the Big Bang. Bremer states that it, and eventually the European Extremely Large Telescope, which will have a mirror five times the diameter of Yepun's, and is tentatively scheduled for first light in 2024, will enable more detailed study of galaxies at such great distances.
+
+Title: Biosignature
+Article: Despite this, it is a rapidly growing field of research due to the prospects of the next generation of telescopes. The James Webb Space Telescope, which launched in December 2021, will be a promising next step in the search for biosignatures. Although its wavelength range and resolution will not be compatible with some of the more important atmospheric biosignature gas bands like oxygen, it will still be able to detect some evidence for oxygen false positive mechanisms. The new generation of ground-based 30-meter class telescopes (Thirty Meter Telescope and Extremely Large Telescope) will have the ability to take high-resolution spectra of exoplanet atmospheres at a variety of wavelengths.
+
+Using only relevant information in these articles, write a few sentences related to the search query "new discoveries from James Webb Space telescope for kids": The James Webb Space Telescope was launched in December 2021 and has already made some incredible discoveries. It has detected galaxies more than 13.4 billion light years away, less than 300 million years after the Big Bang. It has also discovered a planet, HIP 65426 b, with a possible dusty atmosphere, and has been used to search for biosignatures in exoplanet atmospheres.
+
+You found these articles when searching for "Monica Lam's PhD advisor". Write a few sentences that answers your search. Today's date is {{ today }}.
+
+Title: "Monica S. Lam"
+Article: American computer scientist Monica Sin-Ling Lam is an American computer scientist. She is a professor in the Computer Science Department at Stanford University. Professional biography. Monica Lam received a B.Sc. from University of British Columbia in 1980 and a Ph.D. in computer science from Carnegie Mellon University in 1987. Lam joined the faculty of Computer Science at Stanford University in 1988. She has contributed to the research of a wide range of computer systems topics including compilers, program analysis, operating systems, security, computer architecture, and high-performance computing. More recently, she is working in natural language processing, and virtual assistants with an emphasis on privacy protection.
+
+Title: "Monica S. Lam"
+Article: She is the faculty director of the Open Virtual Assistant Lab, which organized the first workshop for the World Wide Voice Web. The lab developed the open-source Almond voice assistant, which is sponsored by the National Science Foundation. Almond received Popular Science's Best of What's New award in 2019. Previously, Lam led the SUIF (Stanford University Intermediate Format) Compiler project, which produced a widely used compiler infrastructure known for its locality optimizations and interprocedural parallelization. Many of the compiler techniques she developed have been adopted by industry. Her other research projects included the architecture and compiler for the CMU Warp machine, a systolic array of VLIW processors, and the Stanford DASH distributed shared memory machine.
+
+Title: "Monica Webb Hooper"
+Article: Webb Hooper's dissertation was titled \"Do Expectancies Influence Outcomes for Tailored Smoking Cessation Messages? A Placebo Tailoring Experiment\". Her doctoral advisor was Thomas H. Brandon. She completed an internship in medical psychology at the University of Florida Health Sciences Center. Career. Webb Hooper is a translational behavioral scientist and clinical health psychologist. She was a professor of oncology, family medicine and community health and psychological sciences at Case Western Reserve University. She was also associate director for cancer disparities research and director of the Office of Cancer Disparities Research in the Case Comprehensive Cancer Center. Webb Hooper became deputy director of the National Institute on Minority Health and Health Disparities (NIMHD) on March 15, 2020.
+
+Using only relevant information in these articles, write a few sentences related to the search query "Monica Lam's PhD advisor": Monica Lam received her PhD in computer science from Carnegie Mellon University in 1987. She then joined the faculty of Computer Science at Stanford University in 1988, where she has contributed to the research of a wide range of computer systems topics. She is currently the faculty director of the Open Virtual Assistant Lab and has developed the open-source Almond voice assistant. However, the articles do not mention who her PhD advisor is.
+
+You found these articles when searching for "when did professor monica lam receive her phd". Write a few sentences that answers your search. Today's date is {{ today }}.
+
+Title: "Linda Siegel"
+Article: Her doctoral dissertation was on information processing in children. Before her appointment to the Dorothy C. Lam Chair in Special Education at the University of British Columbia in 1996, Siegel held posts at the University of Missouri in Columbia; Department of Psychiatry McMaster University Medical Centre, in Hamilton, Ontario; and Ontario Institute for Studies in Education in Toronto. In 2004 she was awarded an Honorary Doctorate from the University of Gothenburg in Sweden and held the university's Kerstin Hesselgren Visiting Professorship for the academic year 2004/2005.
+
+Title: "Monica Macaulay"
+Article: Linguist Monica Macaulay is a professor of linguistics at the University of Wisconsin–Madison, where she is also affiliated with the American Indian Studies Program. Biography. During her teenage years, Macaulay attended high school in Santiago, Chile. It was here that she learned Spanish. After graduating high school and traveling South America she then moved to Prescott, AZ. She relocated shortly after to northern California and pursued art school before enrolling at UC Berkeley. Macaulay received her PhD in 1987 for her research on morphology and cliticization in Chalcatongo Mixtec at the University of California, Berkeley"." She has worked on documenting various indigenous languages of North America, especially Menominee and Potawatomi.
+
+Using only relevant information in these articles, write a few sentences related to the search query "when did professor monica lam receive her phd": There is no mention of Monica Lam in the articles I found.
+
+{% block input %}
+You found these articles when searching for "{{ query }}". Write a few sentences that answers your search. Today's date is {{ today }}.
+
+{% for p in paragraphs %}
+    Title: "{{ titles[loop.index-1] }}"
+    Article: {{ p }}
+
+{% endfor %}
+Using only relevant information in these articles, write a few sentences related to the search query "{{ query }}". The year is {{ current_year }}:{% endblock %}
