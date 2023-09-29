@@ -48,72 +48,16 @@ assistant_start = "<|assistant_start|>"
 assistant_end = "<|assistant_end|>"
 
 azure_api_version = "2023-05-15"
-all_openai_resources = [
-    {
-        "api_type": "azure",
-        "api_version": azure_api_version,
-        "api_base": "https://ovalopenairesource.openai.azure.com/",
-        "api_key": os.getenv("OPENAI_API_KEY"),
-        "engine_map": {
-            "text-davinci-003": "text-davinci-003",
-            "gpt-35-turbo": "gpt-35-turbo",
-            "gpt-4": "gpt-4",
-            "gpt-4-32k": "gpt-4-32k",
-        },
-    },
-    {
-        "api_type": "azure",
-        "api_version": azure_api_version,
-        "api_base": "https://reactgenie-dev.openai.azure.com/",
-        "api_key": os.getenv("OPENAI_API_KEY_1"),
-        "engine_map": {
-            "text-davinci-003": "text_user_study",
-            "gpt-35-turbo": "test_35",
-            "gpt-4": "test",
-            "gpt-4-32k": "test2",
-        },
-    },
-    {
-        "api_type": "azure",
-        "api_version": azure_api_version,
-        "api_base": "https://wikidata.openai.azure.com/",
-        "api_key": os.getenv("OPENAI_API_KEY_2"),
-        "engine_map": {
-            "text-davinci-003": "text-davinci-003",
-            "gpt-35-turbo": "gpt-35-turbo",
-            "gpt-4": "gpt4-8k-playground",
-        },
-    },
-    {
-        "api_type": "azure",
-        "api_version": azure_api_version,
-        "api_base": "https://oval-france-central.openai.azure.com/",
-        "api_key": os.getenv("OPENAI_API_KEY_3"),
-        "engine_map": {
-            "gpt-35-turbo": "gpt-35-turbo",
-            "gpt-4": "gpt-4",
-        },
-    },
-]
+all_openai_resources = []
 all_openai_resources = [
     a for a in all_openai_resources if a["api_key"] is not None
 ]  # remove resources for which we don't have a key
 
 # only used when other resources fail due to Azure's content filter
-backup_openai_resource = all_openai_resources[
-    0
-]  # filtering is turned off for this Azure OpenAI resource
-# backup_openai_resource = {
-# "api_type": "open_ai",
-# "api_version": None,
-# "api_base": "https://api.openai.com/v1",
-# "api_key": os.getenv("OPENAI_API_KEY_BACKUP"),
-# "engine_map": {
-#     "text-davinci-003": "text-davinci-003",
-#     "gpt-35-turbo": "gpt-3.5-turbo-0301",
-#     "gpt-4": "gpt-4-0314",
-# },
-# }
+if len(all_openai_resources) > 0:
+    backup_openai_resource = all_openai_resources[0]  # filtering is turned off for this Azure OpenAI resource
+else:
+    backup_openai_resource = None
 
 # for prompt debugging
 prompt_log_file = "data/prompt_logs.json"
@@ -574,9 +518,6 @@ def _fill_template(template_file, prompt_parameter_values, get_rendered_blocks=F
     prompt_parameter_values["location"] = "the U.S."
     prompt_parameter_values["chatbot_name"] = "StackExchangeInterface"
 
-    # TODO(yijia): hardcode at present.
-    prompt_parameter_values["domain"] = "https://cooking.stackexchange.com"
-
     filled_prompt = template.render(**prompt_parameter_values)
     filled_prompt = _remove_starting_and_ending_whitespace(filled_prompt)
 
@@ -931,10 +872,16 @@ def llm_generate(
                     for block in rendered_blocks
                 ]
             elif local_engine_prompt_format == "simple":
-                filled_prompt = [
-                    "{instruction}\n\n{input}\n".format_map(block)
-                    for block in rendered_blocks
-                ]
+                if engine == "llama":
+                    filled_prompt = [
+                        "{short_instruction}\n\n{input}\n".format_map(block)
+                        for block in rendered_blocks
+                    ]
+                else:
+                    filled_prompt = [
+                        "{instruction}\n\n{input}\n".format_map(block)
+                        for block in rendered_blocks
+                    ]
             else:
                 raise ValueError(
                     "Unknown prompt format specified for the local engine."

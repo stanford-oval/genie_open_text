@@ -12,13 +12,8 @@ def add_pipeline_arguments(parser):
         type=str,
         required=True,
         choices=[
-            "verify_and_correct",
-            "retrieve_and_generate",
             "generate",
-            "retrieve_only",
-            "early_combine",
-            "atlas",
-            "early_combine_with_replacement"  # TODO(yijia): experimental
+            "genie"
         ],
         default="verify_and_correct",
         help="The type of pipeline used to imrpove GPT-3 response. Only used to know which modules to load.",
@@ -26,35 +21,32 @@ def add_pipeline_arguments(parser):
     parser.add_argument(
         "--claim_prompt_template_file",
         type=str,
+        default="prompts/split_claim_rewrite.prompt",
         help="The path to the file containing the claim LLM prompt.",
-    )
-    parser.add_argument(
-        "--refinement_prompt",
-        default="prompts/feedback_and_refine.prompt",
-        help="What prompt to use to refine the final response.",
     )
     parser.add_argument(
         "--summary_prompt",
         type=str,
+        default="prompts/single_summary.prompt",
         help="What prompt to use to summarize retrieved passage into bullet points."
     )
     parser.add_argument(
         "--initial_search_prompt",
         type=str,
+        default="prompts/initial_search.prompt",
         help="What prompt to use to get initial search query from the user input."
     )
     parser.add_argument(
         "--verification_prompt",
         type=str,
+        default="prompts/verify_and_correct.prompt",
         help="What prompt to use to verify (or with correction) the LLM's output claim."
     )
     parser.add_argument(
         "--evidence_combiner_prompt",
         type=str,
+        default="prompts/evidence_combiner.prompt",
         help="What prompt to use to combine bullet points into the final output."
-    )
-    parser.add_argument(
-        "--do_refine", action="store_true", help="Whether to refine the final response."
     )
     parser.add_argument(
         "--skip_verification",

@@ -26,12 +26,10 @@ class Chatbot:
     def __init__(self, args) -> None:
         self.args = args
         if args.pipeline == "verify_and_correct" or args.pipeline == "early_combine" \
-                or args.pipeline == "early_combine_with_replacement":
+                or args.pipeline == "genie":
             self.claim_splitter = ClaimSplitter(args)
             self.evi_num = args.evi_num
         self.colbert_endpoint = args.colbert_endpoint
-        if args.do_refine:
-            self.refiner = Refiner(prompt=args.refinement_prompt, args=args)
 
     def generate_next_turn(
             self,
@@ -51,20 +49,7 @@ class Chatbot:
 
         start_time = time.time()
 
-        if pipeline == "verify_and_correct":
-            new_dlg_turn = self.verify_and_correct_pipeline(
-                object_dlg_history,
-                new_user_utterance=new_user_utterance,
-                system_parameters=system_parameters,
-                original_reply=original_reply,
-            )
-        elif pipeline == "retrieve_and_generate":
-            new_dlg_turn = self.retrieve_and_generate_pipeline(
-                object_dlg_history,
-                new_user_utterance=new_user_utterance,
-                system_parameters=system_parameters,
-            )
-        elif pipeline == "generate":
+        if pipeline == "generate":  # Baseline.
             reply = self._generate_only(
                 object_dlg_history,
                 new_user_utterance=new_user_utterance,
@@ -73,20 +58,7 @@ class Chatbot:
             new_dlg_turn = DialogueTurn(user_utterance=new_user_utterance)
             new_dlg_turn.gpt3_agent_utterance = reply
             new_dlg_turn.agent_utterance = reply
-        elif pipeline == "retrieve_only":
-            new_dlg_turn = self.retrieve_only_pipeline(
-                object_dlg_history,
-                new_user_utterance=new_user_utterance,
-                system_parameters=system_parameters,
-            )
-        elif pipeline == "early_combine":
-            new_dlg_turn = self.early_combine_pipeline(
-                object_dlg_history,
-                new_user_utterance=new_user_utterance,
-                system_parameters=system_parameters,
-                original_reply=original_reply,
-            )
-        elif pipeline == "early_combine_with_replacement":
+        elif pipeline == "genie":
             new_dlg_turn = self.early_combine_with_replacement_pipeline(
                 object_dlg_history,
                 new_user_utterance=new_user_utterance,
@@ -96,14 +68,6 @@ class Chatbot:
         else:
             raise ValueError
 
-        if self.args.do_refine:
-            prerefinement_agent_utterance = new_dlg_turn.agent_utterance
-            new_dlg_turn.agent_utterance = self.refiner.set_refinement_fields(
-                object_dlg_history, new_dlg_turn, system_parameters=system_parameters
-            )
-            if new_dlg_turn.agent_utterance == prerefinement_agent_utterance:
-                logger.info("Refinement did NOT change the agent utterance")
-
         new_dlg_turn.engine = system_parameters.get("engine", self.args.engine)
         new_dlg_turn.pipeline = pipeline
 
@@ -111,163 +75,6 @@ class Chatbot:
         new_dlg_turn.wall_time_seconds = end_time - start_time
         new_dlg_turn.dlg_history = object_dlg_history
         new_dlg_turn.claim_splitter = self.claim_splitter
-
-        return new_dlg_turn
-
-    def retrieve_only_pipeline(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_user_utterance: str,
-            system_parameters: dict,
-    ):
-        new_dlg_turn = DialogueTurn(user_utterance=new_user_utterance)
-        # search based on the history of the dialog so far
-        search_prompt_output = llm_generate(
-            template_file=self.args.initial_search_prompt,
-            prompt_parameter_values={
-                "dlg": object_dlg_history,
-                "new_user_utterance": new_user_utterance,
-                "force_search": True,
-            },
-            engine=system_parameters.get("engine", self.args.engine),
-            max_tokens=50,
-            temperature=0.0,
-            top_p=0.5,
-            stop_tokens=["\n"],
-            postprocess=False,
-            ban_line_break_start=True,
-        )
-        search_prompt_output = (
-                "Yes. " + search_prompt_output
-        )  # because we are forcing a search
-        self._handle_search_prompt_output(
-            search_prompt_output=search_prompt_output,
-            new_dlg_turn=new_dlg_turn,
-            num_paragraphs=1,
-            summarize_results=False,
-            system_parameters=system_parameters,
-        )
-
-        paragraph = new_dlg_turn.initial_search_results[
-            0
-        ]  # we only retrieve one paragraph
-        title = new_dlg_turn.initial_search_result_titles[0]
-        new_dlg_turn.agent_utterance = (
-                'I found an article titled "' + title + '": ' + paragraph
-        )
-        return new_dlg_turn
-
-    def retrieve_and_generate_pipeline(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_user_utterance: str,
-            system_parameters: dict,
-    ):
-        new_dlg_turn = DialogueTurn(user_utterance=new_user_utterance)
-        reply = self._retrieve_and_generate(
-            object_dlg_history,
-            new_user_utterance,
-            new_dlg_turn,
-            system_parameters=system_parameters,
-        )
-        new_dlg_turn.agent_utterance = reply
-
-        return new_dlg_turn
-
-    def verify_and_correct_pipeline(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_user_utterance: str,
-            system_parameters: dict,
-            original_reply: str = "",
-    ):
-        """
-        Verify and correct the last turn of a given dialog using retrieved evidences
-        Args:
-            - `object_dlg_history` (list): previous dialog turns
-            - `new_user_utterance` (str): last user utterance
-            - `original_reply` (str): if original_reply is provided, no need to run GPT3 baseline
-        Returns:
-            - `corrected_reply` (str): corrected GPT3 response
-            - `new_dialog_turn` (DialogTurn)
-        """
-        if not original_reply:
-            original_reply = self._generate_only(
-                object_dlg_history,
-                new_user_utterance,
-                system_parameters=system_parameters,
-            )
-
-        new_dlg_turn = DialogueTurn(user_utterance=new_user_utterance)
-        new_dlg_turn.gpt3_agent_utterance = original_reply
-
-        new_dlg_turn.agent_utterance = self._verify_and_correct_reply(
-            object_dlg_history,
-            new_user_utterance,
-            original_reply,
-            new_dlg_turn,
-            system_parameters=system_parameters,
-        )
-
-        return new_dlg_turn
-
-    def early_combine_pipeline(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_user_utterance: str,
-            system_parameters: dict,
-            original_reply: str = "",
-    ):
-        new_dlg_turn = DialogueTurn(user_utterance=new_user_utterance)
-        if not original_reply:
-            original_reply = self._generate_only(
-                object_dlg_history,
-                new_user_utterance,
-                system_parameters=system_parameters,
-            )
-        new_dlg_turn.gpt3_agent_utterance = original_reply
-
-        # gather evidence from two routs in parallel
-        with ThreadPoolExecutor(2) as executor:
-            search_summary = executor.submit(
-                self._search_and_summarize,
-                object_dlg_history,
-                new_user_utterance,
-                new_dlg_turn,
-                system_parameters=system_parameters,
-            )
-            supported_claims = executor.submit(
-                self._split_and_fact_check,
-                object_dlg_history,
-                new_user_utterance,
-                original_reply,
-                new_dlg_turn,
-                system_parameters=system_parameters,
-            )
-        search_summary = search_summary.result()
-        supported_claims = supported_claims.result()
-
-        combined_evi = supported_claims + search_summary
-        new_dlg_turn.combined_evidences = combined_evi
-
-        if not combined_evi:
-            logger.info("Combined evidence is empty")
-            if new_dlg_turn.initial_search_query is None:
-                # No search needed, so return the original chitchat response
-                new_dlg_turn.combined_utterance = original_reply
-            else:
-                # will become more conversational after refinement
-                new_dlg_turn.combined_utterance = ("Sorry, I cannot find information on the website. "
-                                                   "You can raise a new question in our online community.")
-        else:
-            new_dlg_turn.combined_utterance = self._reply_using_combined_evidence(
-                original_reply,
-                object_dlg_history,
-                new_user_utterance,
-                combined_evi,
-                system_parameters=system_parameters,
-            )
-            new_dlg_turn.agent_utterance = new_dlg_turn.combined_utterance
 
         return new_dlg_turn
 
@@ -458,7 +265,7 @@ class Chatbot:
                 paragraphs, scores, titles = self._colbert_retrieve(
                     query=search_query,
                     num_paragraphs=num_paragraphs,
-                    rerank="voting",  # TODO(yijia): hardcode to rerank with voting.
+                    rerank="voting",
                     num_paragraphs_for_reranking=10,
                 )
 
@@ -508,41 +315,6 @@ class Chatbot:
             raise ValueError(
                 "Search prompt's output is invalid: %s" % search_prompt_output
             )
-
-    def _retrieve_and_generate(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_user_utterance: str,
-            new_dlg_turn: DialogueTurn,
-            system_parameters: dict,
-    ) -> str:
-        """
-        Retrieves related documents and generates a reply base on them, given the dialog history
-        Updates `new_dlg_turn` with logs
-        Returns reply
-        """
-        self._search_and_summarize(
-            object_dlg_history, new_user_utterance, new_dlg_turn, system_parameters
-        )
-
-        reply = llm_generate(
-            template_file="prompts/retrieve_and_generate.prompt",
-            prompt_parameter_values={
-                "dlg": object_dlg_history,
-                "new_user_utterance": new_user_utterance,
-                "search_query": new_dlg_turn.initial_search_query,
-                "search_bullets": new_dlg_turn.initial_search_bullets,
-            },
-            engine=system_parameters.get("engine", self.args.engine),
-            max_tokens=self.args.max_tokens,
-            temperature=self.args.temperature,
-            top_p=self.args.top_p,
-            presence_penalty=self.args.presence_penalty,
-            stop_tokens=["\n"],
-            postprocess=True,
-            ban_line_break_start=True,
-        )
-        return reply
 
     def _search_and_summarize(
             self,
@@ -1009,8 +781,6 @@ class Chatbot:
                     query=cl, num_paragraphs=self.evi_num, top_p=top_p
                 )
             else:
-                # retrieve more so that we can match the dates
-                # TODO(yijia): hardcode "rerank" right now. [year->"voting"]
                 passages, passage_scores, passage_titles = self._colbert_retrieve(
                     query=cl,
                     num_paragraphs=self.evi_num,
@@ -1109,8 +879,8 @@ class Chatbot:
                 fixed_claim = cl
             else:
                 if (
-                    'the fact-checking result is "not enough info"'
-                    in verification_response.lower()
+                        'the fact-checking result is "not enough info"'
+                        in verification_response.lower()
                 ):
                     verification_label = "NOT ENOUGH INFO"
                 else:
@@ -1126,7 +896,7 @@ class Chatbot:
                         logger.info(f"Claim purpose: {claim_purpose}")
                         logger.info(f"Corrected claim: {fixed_claim}")
                         if "NO IDEA" in fixed_claim:
-                            fixed_claim = ""  # TODO(yijia): see whether we want to use _replace() to handle this case.
+                            fixed_claim = ""
                     except (IndexError, AttributeError):
                         logger.error("replace_claim result cannot be parsed.")
 
@@ -1145,99 +915,3 @@ class Chatbot:
         claims = [c for c in claims if c[0] not in previous_turn_claims]
 
         return claims
-
-
-class Refiner:
-    def __init__(self, prompt, args):
-        self.prompt = prompt
-        self.args = args
-
-    def set_refinement_fields(
-            self,
-            object_dlg_history: List[DialogueTurn],
-            new_dlg_turn: DialogueTurn,
-            system_parameters,
-    ):
-        prompt_output = llm_generate(
-            template_file=self.prompt,
-            prompt_parameter_values={
-                "dlg": object_dlg_history,
-                "new_dlg_turn": new_dlg_turn,
-            },
-            engine=system_parameters.get("engine", self.args.engine),
-            max_tokens=300,
-            temperature=self.args.temperature,
-            top_p=self.args.top_p,
-            stop_tokens=None,
-            postprocess=True,
-            ban_line_break_start=False,
-        )
-        if self.prompt.endswith("feedback_and_refine.prompt"):
-            return Refiner.handle_refinement_with_feedback(new_dlg_turn, prompt_output)
-        elif self.prompt.endswith("refine.prompt"):
-            return Refiner.handle_refinement_without_feedback(
-                new_dlg_turn, prompt_output
-            )
-        else:
-            raise ValueError("Unknown refinement prompt.")
-
-    @staticmethod
-    def handle_refinement_without_feedback(new_dlg_turn, prompt_output):
-        new_dlg_turn.refined_utterance = prompt_output.strip()
-        return new_dlg_turn.refined_utterance
-
-    @staticmethod
-    def handle_refinement_with_feedback(new_dlg_turn, prompt_output: str):
-        refine_identifiers = [
-            "Revised response after applying this feedback:",
-            "Response after applying this feedback:",
-        ]
-        for identifier in refine_identifiers:
-            if identifier in prompt_output:
-                feedback, prompt_output = prompt_output.split(identifier)
-
-                (
-                    new_dlg_turn.feedback,
-                    new_dlg_turn.feedback_scores,
-                ) = Refiner._parse_feedback(feedback)
-                # if sum(new_dlg_turn.feedback_scores) == 100 * len(new_dlg_turn.feedback_scores):
-                #     # skip refinement if it already gets full score
-                #     new_dlg_turn.refined_utterance = new_dlg_turn.agent_utterance
-                # else:
-                new_dlg_turn.refined_utterance = prompt_output.strip()
-                return new_dlg_turn.refined_utterance
-
-        logger.error(
-            "Refined response malformatted: %s. Skipping refinement.", prompt_output
-        )
-        new_dlg_turn.refined_utterance = new_dlg_turn.agent_utterance
-        return new_dlg_turn.refined_utterance
-
-    @staticmethod
-    def _parse_feedback(feedback):
-        if "User:" in feedback:
-            feedback = feedback.split("User:")[0]
-        feedback_lines = feedback.strip().split("\n")
-
-        if len(feedback_lines) < 4 or len(feedback_lines) > 5:
-            logger.error("Feedback malformatted")
-            logger.error(feedback_lines)
-            return [], []
-
-        scores = (
-            []
-        )  # Relevant, Informative, Conversational, Non-Redundant, Temporally Correct scores
-        for line in feedback_lines:
-            score = line.strip().split(" ")[-1].strip()
-            if (
-                    score == "N/A" or "this criterion is not applicable" in line
-            ):  # some models say "not applicable" instead of N/A
-                score = 100
-            else:
-                try:
-                    score = int(score.split("/")[0])
-                except:
-                    logger.error(f"Feedback line malformatted: {line}")
-                    score = 100
-            scores.append(score)
-        return feedback_lines, scores
