@@ -17,6 +17,10 @@ from .utils import is_everything_verified, extract_year, extract_vote
 
 logger = logging.getLogger(__name__)
 
+if not logger.handlers:
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    logger.addHandler(ch)
 
 class Chatbot:
     """
