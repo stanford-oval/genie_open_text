@@ -123,7 +123,7 @@ class Chatbot:
         new_dlg_turn.combined_evidences = combined_evi
 
         if not combined_evi:
-            logger.info("Combined evidence is empty")
+            print("pipelines.chatbot : INFO     : " +"Combined evidence is empty")
             if new_dlg_turn.initial_search_query is None:
                 # No search needed, so return the original chitchat response
                 new_dlg_turn.combined_utterance = original_reply
@@ -132,7 +132,7 @@ class Chatbot:
                 new_dlg_turn.combined_utterance = ("Sorry, I cannot find information on the website. "
                                                    "You can raise a new question in our online community.")
 
-        logger.info("Combining the information.")
+        print("pipelines.chatbot : INFO     : " +"Combining the information.")
         new_dlg_turn.combined_utterance = self._reply_using_combined_evidence(
             original_reply,
             object_dlg_history,
@@ -170,10 +170,10 @@ class Chatbot:
             search_query_time = search_match.group(2)
             y = extract_year(title="", passage=search_query)
             if len(y) > 0:
-                logger.info("Overriding query year")
+                print("pipelines.chatbot : INFO     : " +"Overriding query year")
                 search_query_time = y[0]
-            logger.info("search_query = %s", search_query)
-            logger.info("search_query_time = %s", search_query_time)
+            print("pipelines.chatbot : INFO     : " +"search_query = %s", search_query)
+            print("pipelines.chatbot : INFO     : " +"search_query_time = %s", search_query_time)
 
             if self.args.reranking_method == "none":
                 paragraphs, scores, titles = self._colbert_retrieve(
@@ -327,7 +327,7 @@ class Chatbot:
             new_dlg_turn: DialogueTurn,
             system_parameters: dict,
     ):
-        logger.info("Running initial search.")
+        print("pipelines.chatbot : INFO     : " +"Running initial search.")
         search_prompt_output = llm_generate(
             template_file=self.args.initial_search_prompt,
             prompt_parameter_values={
@@ -343,7 +343,7 @@ class Chatbot:
             postprocess=False,
             ban_line_break_start=True,
         )
-        logger.info("Summarizing search results.")
+        print("pipelines.chatbot : INFO     : " +"Summarizing search results.")
         self._handle_search_prompt_output(
             search_prompt_output=search_prompt_output,
             new_dlg_turn=new_dlg_turn,
@@ -363,7 +363,7 @@ class Chatbot:
             with_correct: bool = False,
             replace_unsupported_claim: bool = False
     ):
-        logger.info("Splitting the claims.")
+        print("pipelines.chatbot : INFO     : " +"Splitting the claims.")
         claims = self.claim_splitter.split_claim(
             dialog_history=object_dlg_history,
             new_user_utterance=new_user_utterance,
@@ -380,7 +380,7 @@ class Chatbot:
         ret_output = self._retrieve_evidences(claims)
 
         # verify claims
-        logger.info("Verifying claims.")
+        print("pipelines.chatbot : INFO     : " +"Verifying claims.")
         ver_output = self._verify_claims(
             claims,
             ret_output,
@@ -612,7 +612,7 @@ class Chatbot:
             claim_purpose = match_result.group(1)
             corrected_claim = match_result.group(2)
         except (IndexError, AttributeError):
-            logger.error("replace_claim result cannot be parsed.")
+            print("pipelines.chatbot : ERROR     : " +"replace_claim result cannot be parsed.")
             claim_purpose = ""
             corrected_claim = ""
 
@@ -739,7 +739,7 @@ class Chatbot:
                     query_year = int(rerank)
                 except ValueError as e:
                     # raise ValueError('rerank should be none, recent or an integer.')
-                    logger.error(e)
+                    print("pipelines.chatbot : ERROR     : " +e)
                     return (
                         passages[:num_paragraphs],
                         scores[:num_paragraphs],
@@ -896,13 +896,13 @@ class Chatbot:
                     try:
                         claim_purpose = match_result.group(1)
                         fixed_claim = match_result.group(2)
-                        logger.info(f"Original unsupported claim: {cl}")
-                        logger.info(f"Claim purpose: {claim_purpose}")
-                        logger.info(f"Corrected claim: {fixed_claim}")
+                        print("pipelines.chatbot : INFO     : " +f"Original unsupported claim: {cl}")
+                        print("pipelines.chatbot : INFO     : " +f"Claim purpose: {claim_purpose}")
+                        print("pipelines.chatbot : INFO     : " +f"Corrected claim: {fixed_claim}")
                         if "NO IDEA" in fixed_claim:
                             fixed_claim = ""
                     except (IndexError, AttributeError):
-                        logger.error("replace_claim result cannot be parsed.")
+                        print("pipelines.chatbot : ERROR     : " +"replace_claim result cannot be parsed.")
 
             ver_output.append({"label": verification_label, "claim_purpose": claim_purpose, "fixed_claim": fixed_claim})
 
