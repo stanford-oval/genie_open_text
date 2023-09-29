@@ -16,7 +16,7 @@ from pipelines.pipeline_arguments import (
 )
 from pipelines.llm import set_debug_mode, write_prompt_logs_to_file
 
-logging.getLogger("openai").setLevel(logging.ERROR)
+logging.getLogger("openai").setLevel(logging.INFO)
 
 logger = logging.getLogger(__name__)
 
