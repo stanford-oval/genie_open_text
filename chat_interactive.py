@@ -20,6 +20,13 @@ logging.getLogger("openai").setLevel(logging.INFO)
 
 logger = logging.getLogger(__name__)
 
+if not logger.handlers:
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+
 
 def main(args):
     chatbot = Chatbot(args)

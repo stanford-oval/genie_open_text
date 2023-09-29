@@ -28,10 +28,10 @@ def print_chatbot(s: str):
 
 def input_user() -> str:
     try:
-        user_utterance = input(bcolors.OKCYAN + bcolors.BOLD + "User: ")
+        user_utterance = input(bcolors.OKBLUE + bcolors.BOLD + "User: ")
         # ignore empty inputs
         while not user_utterance.strip():
-            user_utterance = input(bcolors.OKCYAN + bcolors.BOLD + "User: ")
+            user_utterance = input(bcolors.OKBLUE + bcolors.BOLD + "User: ")
     finally:
         print(bcolors.ENDC)
     return user_utterance
