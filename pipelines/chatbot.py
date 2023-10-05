@@ -251,6 +251,9 @@ class Chatbot:
         The retrieved documents are reranked based on the number of voting.
         """
 
+        # Temporary fix.
+        if "The year of the results is" in search_prompt_output:
+            search_prompt_output = search_prompt_output[:search_prompt_output.find("The year of the results is")]
         search_prompt_output = search_prompt_output.strip()
         search_pattern = r'Yes\. You.*"([^"]*)".*\.]?'
         search_match = re.match(search_pattern, search_prompt_output)
